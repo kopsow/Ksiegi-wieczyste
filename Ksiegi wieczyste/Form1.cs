@@ -893,7 +893,7 @@ Przeglądanie treści księgi wieczystej ")
         private void Form1_Load(object sender, EventArgs e)
         {
             // TODO: Ten wiersz kodu wczytuje dane do tabeli 'polskie_znakiDataSet.eukw' . Możesz go przenieść lub usunąć.
-            this.eukwTableAdapter.Fill(this.polskie_znakiDataSet.eukw);
+            
             Timer t1 = new Timer();
             t1.Interval = 50;
             t1.Tick += new EventHandler(timer1_Tick);
