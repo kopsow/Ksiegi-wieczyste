@@ -80,10 +80,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="KW.mdf" />
-    <Content Include="KW_log.ldf">
-      <DependentUpon>KW.mdf</DependentUpon>
-    </Content>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
