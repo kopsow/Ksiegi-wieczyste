@@ -39,11 +39,11 @@
             this.richTextBox4 = new System.Windows.Forms.RichTextBox();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.polskie_znakiDataSet = new Ksiegi_wieczyste.polskie_znakiDataSet();
             this.eukwBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.polskie_znakiDataSet = new Ksiegi_wieczyste.polskie_znakiDataSet();
             this.eukwTableAdapter = new Ksiegi_wieczyste.polskie_znakiDataSetTableAdapters.eukwTableAdapter();
-            ((System.ComponentModel.ISupportInitialize)(this.polskie_znakiDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.eukwBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.polskie_znakiDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -96,12 +96,11 @@
             // 
             // richTextBox2
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(720, 211);
+            this.richTextBox2.Location = new System.Drawing.Point(719, 12);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(303, 510);
             this.richTextBox2.TabIndex = 5;
             this.richTextBox2.Text = "";
-            this.richTextBox2.Visible = false;
             // 
             // richTextBox3
             // 
@@ -122,7 +121,7 @@
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(709, 12);
+            this.webBrowser1.Location = new System.Drawing.Point(719, 284);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.Size = new System.Drawing.Size(613, 510);
@@ -143,15 +142,15 @@
             this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
             this.comboBox1.SelectedValueChanged += new System.EventHandler(this.comboBox1_SelectedValueChanged);
             // 
-            // polskie_znakiDataSet
-            // 
-            this.polskie_znakiDataSet.DataSetName = "polskie_znakiDataSet";
-            this.polskie_znakiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // eukwBindingSource
             // 
             this.eukwBindingSource.DataMember = "eukw";
             this.eukwBindingSource.DataSource = this.polskie_znakiDataSet;
+            // 
+            // polskie_znakiDataSet
+            // 
+            this.polskie_znakiDataSet.DataSetName = "polskie_znakiDataSet";
+            this.polskie_znakiDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // eukwTableAdapter
             // 
@@ -177,8 +176,8 @@
             this.Deactivate += new System.EventHandler(this.Form1_Deactivate);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
-            ((System.ComponentModel.ISupportInitialize)(this.polskie_znakiDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.eukwBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.polskie_znakiDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }

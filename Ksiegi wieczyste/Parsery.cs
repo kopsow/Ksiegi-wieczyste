@@ -55,6 +55,31 @@ namespace Ksiegi_wieczyste
 
         }
 
+        public static string powierzchnia(string input)
+        {
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(input);
+            string powierzchnia = null;
+            try
+            {
+                HtmlNodeCollection links = doc.DocumentNode.SelectNodes("//td[@class='csBDane' and @width='45%' and @colspan='45' ]");
+                
+                foreach (var item in links)
+                {
+                    if (item.InnerHtml.Contains("HA"))
+                    {
+                        powierzchnia = item.InnerHtml;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw new System.Exception("Błąd podczas pobierania powierzchni");
+            }
+            return powierzchnia;
+        }
+
 
     }
 }

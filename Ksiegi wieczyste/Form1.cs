@@ -884,10 +884,10 @@ Przeglądanie treści księgi wieczystej ")
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            parsujDzial2();
+            bool res=
+            CheckingClass.czyKwZamknieta("ss");
 
-
-
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
