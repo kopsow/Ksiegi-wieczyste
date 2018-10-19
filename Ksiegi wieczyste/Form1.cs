@@ -19,9 +19,9 @@ namespace Ksiegi_wieczyste
         private string _dzial_II = null;
         private string _dzial_Isp = null;
         private string _dzial_Io = null;
-
+        
        
-
+       
         public string dzial_III
         {
             get { return _dzial_III; }
@@ -413,6 +413,13 @@ namespace Ksiegi_wieczyste
 
                 //wspolrzedne 2643,324 dla aktywnej captchy
 
+                //Sprawdzamy czy KW nie jest zamknięta
+                bool kw_zamknieta = CheckingClass.czyKwZamknieta();
+                if ( kw_zamknieta== true)
+                {
+                    goto KsiegaZamknieta;
+                }
+
                 //Przeglądanie aktualnej treści KW
                 UstawPrzegladanie();
                 
@@ -627,6 +634,14 @@ namespace Ksiegi_wieczyste
                 //dodajKsiegeDoBazy(numerKsiegi.ToString(), dzial_III, dzial_II, dzial_Isp, dzial_Io);
                 DodajKsiegeDoBazySQL(numerKsiegi.ToString(), dzial_III, dzial_II, dzial_Isp, dzial_Io);
 
+                KsiegaZamknieta:
+                if (kw_zamknieta== true)
+                {
+                    string data_zamkniecia_kw = CheckingClass.DataZamknieciaKsiegi;
+                    DodajKsiegeDoBazySQL("SR2W/" + numer_ksiegi + "/" + cyfra_kontrolna, data_zamkniecia_kw, "NULL", "NULL", "NULL");
+                }
+               
+
             }
             else
             {
@@ -660,7 +675,7 @@ namespace Ksiegi_wieczyste
                 conn.Open();
                 SqlCommand comm = new SqlCommand();
                 comm.Connection = conn;
-                comm.CommandText = "select distinct(numer_kw) from lista_stare_kw where numer_kw not in (select kw from eukw) and numer_kw not in ('SR2W/00002701/2')";
+                comm.CommandText = "select distinct(numer_kw) from lista_nowe_kw where numer_kw not in (select kw from eukw)";
                
 
                 SqlDataReader dr = comm.ExecuteReader();
@@ -884,9 +899,15 @@ Przeglądanie treści księgi wieczystej ")
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            bool res=
-            CheckingClass.czyKwZamknieta("ss");
+            bool result = CheckingClass.czyKwZamknieta();
 
+            if (result==true)
+            {
+                MessageBox.Show("Księga zamknięta");
+            } else
+            {
+                MessageBox.Show("Księga otwarta" + CheckingClass.DataZamknieciaKsiegi);
+            }
             
         }
 
