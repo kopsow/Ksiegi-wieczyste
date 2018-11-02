@@ -54,7 +54,7 @@ namespace Ksiegi_wieczyste
             }
 
         }
-
+        
         public static string powierzchnia(string input)
         {
             HtmlDocument doc = new HtmlDocument();
@@ -80,6 +80,28 @@ namespace Ksiegi_wieczyste
             return powierzchnia;
         }
 
+        public static string numery_dzialek(string input, string kw)
+        {
+            HtmlDocument doc = new HtmlDocument();
+            List<string> lista_dzialek = new List<string>();
 
+            doc.LoadHtml(input);
+            try
+            {
+                HtmlNodeCollection links = doc.DocumentNode.SelectNodes("//table[@class='tbOdpis' and @cellspacing='0' and @width='100%']");
+                HtmlNodeCollection rows = links[2].SelectNodes("td[@class='csBDane' and @width='45%' and @colspan='45' ]");
+                
+                foreach (var item in rows)
+                {
+                    lista_dzialek.Add(item.InnerHtml);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return String.Join(",", lista_dzialek.ToArray()); ;
+        }
     }
 }

@@ -16,6 +16,14 @@ namespace Ksiegi_wieczyste
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+            /*Application.Run(new MainForm());
+            
+            NotifyIcon ni = new NotifyIcon();
+            
+            System.Drawing.Icon icon = new System.Drawing.Icon(@"c:\Users\Bartek\Pictures\Custom-Icon-Design-Pretty-Office-2-Basic-data.ico");
+            ni.Icon = icon;*/
+
+
         }
     }
 }

@@ -675,7 +675,7 @@ namespace Ksiegi_wieczyste
                 conn.Open();
                 SqlCommand comm = new SqlCommand();
                 comm.Connection = conn;
-                comm.CommandText = "select distinct(numer_kw) from lista_nowe_kw where numer_kw not in (select kw from eukw)";
+                comm.CommandText = "SELECT distinct(kw) from ponownie_do_pobrania where kw not in ('SR2W/00005985/7')";
                
 
                 SqlDataReader dr = comm.ExecuteReader();
@@ -899,16 +899,20 @@ Przeglądanie treści księgi wieczystej ")
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            bool result = CheckingClass.czyKwZamknieta();
-
-            if (result==true)
+            
+            DatabaseClass db = new DatabaseClass("145.239.91.163", "tomek", "koperski82!", "polskie_znaki");
+            if (db.Polacz() == true)
             {
-                MessageBox.Show("Księga zamknięta");
-            } else
-            {
-                MessageBox.Show("Księga otwarta" + CheckingClass.DataZamknieciaKsiegi);
+                SqlDataReader dr = db.Pobierz("SELECT TOP(5) kw, dzial_1o from eukw");
+                while(dr.Read())
+                {
+                    string wynik = Parsery.numery_dzialek(dr.GetString(1),dr.GetString(0));
+                    MessageBox.Show(wynik);
+                }
             }
             
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
