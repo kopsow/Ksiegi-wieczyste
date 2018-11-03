@@ -903,11 +903,12 @@ Przeglądanie treści księgi wieczystej ")
             DatabaseClass db = new DatabaseClass("145.239.91.163", "tomek", "koperski82!", "polskie_znaki");
             if (db.Polacz() == true)
             {
-                SqlDataReader dr = db.Pobierz("SELECT TOP(5) kw, dzial_1o from eukw");
+                SqlDataReader dr = db.Pobierz("SELECT  dzial3,kw from eukw where kw ='SR2W/00002950/2'");
                 while(dr.Read())
                 {
-                    string wynik = Parsery.numery_dzialek(dr.GetString(1),dr.GetString(0));
-                    MessageBox.Show(wynik);
+                    //string wynik = Parsery.numery_dzialek(dr.GetString(1),dr.GetString(0));
+                    string wynik = Parsery.podstawa_wpisu(dr.GetString(0),dr.GetString(1));
+                    richTextBox1.AppendText(wynik.Substring(0,10) + Environment.NewLine);
                 }
             }
             

@@ -80,6 +80,64 @@ namespace Ksiegi_wieczyste
             return powierzchnia;
         }
 
+        public static string podstawa_wpisu(string input,string kw)
+        {
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(input);
+            List<string> podstawa_wpisu = new List<string>();
+            HtmlNodeCollection lista_wpisow = doc.DocumentNode.SelectNodes("//*[contains(., 'BRAK WPISÓW')]");
+            HtmlNodeCollection ostrzenie = doc.DocumentNode.SelectNodes("//*[contains(., 'OSTRZEŻENIE')]");
+
+
+            if ( lista_wpisow == null && ostrzenie == null)
+            {
+                HtmlNodeCollection links = doc.DocumentNode.SelectNodes("//table[@class='tbOdpis' and @cellspacing='0' and @width='100%']");
+                //HtmlNodeCollection rows = links[1].SelectNodes("td[@class='csBDane' and @width='45%' and @colspan='45' ]");
+                HtmlNodeCollection rows = links[1].SelectNodes("td[@class='csBDane' and @width='45%' and @colspan='45' ]");
+                if (rows.Count == 1)
+                {
+                    return "SAMA MIGRACJA";
+                } else if (rows.Count == 2)
+                {
+                    HtmlNodeCollection rows2 = links[1].SelectNodes("td[@class='csDane' and @width='45%' and @colspan='45' ]");
+                    podstawa_wpisu.Add(rows[1].InnerText);
+                    podstawa_wpisu.Add(rows2[3].InnerText);
+
+                    if (rows2.Count == 5)
+                    {
+                        podstawa_wpisu.Add(rows2[4].InnerText);
+                    }
+                    
+                    if (rows2.Count ==6)
+                    {
+                        podstawa_wpisu.Add(rows2[5].InnerText);
+                    }
+                    return String.Join(" ", podstawa_wpisu.ToArray()); 
+                }
+                else 
+                {
+                    HtmlNodeCollection rows2 = links[1].SelectNodes("td[@class='csDane' and @width='45%' and @colspan='45' ]");
+                    podstawa_wpisu.Add(rows[3].InnerText);
+                    podstawa_wpisu.Add(rows2[3].InnerText);
+                    podstawa_wpisu.Add(rows2[4].InnerText);
+                    return String.Join(" ", podstawa_wpisu.ToArray()); 
+                }
+            } else if (ostrzenie!=null)
+            {
+
+                HtmlNodeCollection links = doc.DocumentNode.SelectNodes("//table[@class='tbOdpis' and @cellspacing='0' and @width='100%']");
+                HtmlNodeCollection csDane = links[1].SelectNodes("td[@class='csDane' and @width='45%' and @colspan='45' ]");
+                return csDane[3].InnerText;
+            }
+            else
+            {
+                return "BRAK WPISÓW";
+            }
+              
+
+           
+
+        }
         public static string numery_dzialek(string input, string kw)
         {
             HtmlDocument doc = new HtmlDocument();
