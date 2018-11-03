@@ -709,8 +709,7 @@ namespace Ksiegi_wieczyste
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            string wynik =Parsery.wlasciel("");
-            MessageBox.Show(wynik);
+            Excel.test();
 
 
         }
