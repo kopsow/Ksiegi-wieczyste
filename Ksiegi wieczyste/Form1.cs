@@ -709,21 +709,8 @@ namespace Ksiegi_wieczyste
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = "Server=192.168.50.150;Database=polskie_znaki;User Id=SA;Password=koperski82!;";
-
-            SqlCommand comm = new SqlCommand();
-            comm.CommandText = "SELECT kw,dzial_1o FROM eukw WHERE id not in (34,39,57) ";
-            comm.Connection = conn;
-            conn.Open();
-            SqlDataReader dr = comm.ExecuteReader();
-            List<List<string>> wynik = new List<List<string>>();
-            while (dr.Read())
-            {
-                
-                wynik.Add(Parsery.dzial_1o(dr.GetString(0), dr.GetString(1)));
-            }
-            conn.Close();
+            string wynik =Parsery.wlasciel("");
+            MessageBox.Show(wynik);
 
 
         }
@@ -900,15 +887,40 @@ Przeglądanie treści księgi wieczystej ")
         private void button4_Click(object sender, EventArgs e)
         {
             
-            DatabaseClass db = new DatabaseClass("145.239.91.163", "tomek", "koperski82!", "polskie_znaki");
+            DatabaseClass db = new DatabaseClass("145.239.91.163", "sa", "koperski82!", "polskie_znaki");
             if (db.Polacz() == true)
             {
-                SqlDataReader dr = db.Pobierz("SELECT  dzial3,kw from eukw where kw ='SR2W/00002950/2'");
+                SqlDataReader dr = db.Pobierz("SELECT kw,dzial2 from eukw where dzial_1o like '%html%' AND dzial_1sp like '%html%' AND dzial2 like '%html%' AND dzial3 like '%html%' and id not in (317,637,638)" +
+                    " and kw in ('SR2W/00000008/0','SR2W/00000009/7','SR2W/00000136/6','SR2W/00000140/7','SR2W/00000490/5','SR2W/00000535/3','SR2W/00001907/9','SR2W/00001947/1','SR2W/00002381/2','SR2W/00002723/2','SR2W/00003436/0','SR2W/00003471/7','SR2W/00003731/8','SR2W/00004156/0','SR2W/00004230/3','SR2W/00004951/3','SR2W/00007779/4','SR2W/00008217/4','SR2W/00024189/6','SR2W/00028212/5','SR2W/00028213/2','SR2W/00029279/9')");
+                List<string> lista_kw = new List<string>();
+                Dictionary<string, string> dzial_1o = new Dictionary<string, string>();
+                Dictionary<string, string> pole_powierzchni = new Dictionary<string, string>();
+                Dictionary<string, string> mapy = new Dictionary<string, string>();
+                Dictionary<string, string> podstawa = new Dictionary<string, string>();
+                Dictionary<string, string> rodzaj_nieruchomosci = new Dictionary<string, string>();
                 while(dr.Read())
                 {
-                    //string wynik = Parsery.numery_dzialek(dr.GetString(1),dr.GetString(0));
-                    string wynik = Parsery.podstawa_wpisu(dr.GetString(0),dr.GetString(1));
-                    richTextBox1.AppendText(wynik.Substring(0,10) + Environment.NewLine);
+                    string numer_kw = dr.GetString(0);
+                    string input_html = dr.GetString(1);
+                    //dzial_1o.Add(numer_kw, Parsery.numery_dzialek(input_html, numer_kw));
+
+                    //pole_powierzchni.Add(numer_kw, Parsery.powierzchnia(input_html));
+                    //mapy.Add(numer_kw, Parsery.informacje_o_mapach(input_html));
+                    /*richTextBox1.AppendText(numer_kw+Environment.NewLine);
+                    richTextBox1.AppendText( Parsery.rodzaj_nieruchomosci(input_html)+Environment.NewLine);
+                    richTextBox1.AppendText("==============="+Environment.NewLine);*/
+                    richTextBox1.AppendText(numer_kw + Environment.NewLine);
+                    richTextBox1.AppendText(Parsery.wlasciel(input_html) + Environment.NewLine);
+                    richTextBox1.AppendText("===============" + Environment.NewLine);
+                    podstawa.Add(numer_kw, Parsery.wlasciel(input_html));
+                }
+                dr.Close();
+               foreach (KeyValuePair<string,string> val in podstawa)
+                {
+                    // db.AktualizujPolePowierzchni(val.Value, val.Key);
+                    // db.AktualizujInformacjeOmapach(val.Value, val.Key);
+                    //db.AktualizujPodstaweWpisu(val.Value, val.Key);
+                    db.AktualizujWlasciciela(val.Value, val.Key);
                 }
             }
             
