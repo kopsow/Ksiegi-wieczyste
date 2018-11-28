@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Ksiegi_wieczyste
 {
-    class Parsery
+   public class Parsery
     {
         
         public static string numery_dzialek(string input,string kw)

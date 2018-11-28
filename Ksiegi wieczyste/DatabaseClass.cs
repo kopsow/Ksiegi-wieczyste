@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace Ksiegi_wieczyste
 {
-    class DatabaseClass
+    public class DatabaseClass
     {
         public string server  { get; set; }
         public string login { get; set; }
