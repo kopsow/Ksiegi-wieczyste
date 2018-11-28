@@ -709,9 +709,18 @@ namespace Ksiegi_wieczyste
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            Excel.test();
-
-
+            List<string> lista_wynikow = new List<string>();
+            DatabaseClass db = new DatabaseClass("145.239.91.163", "SA", "koperski82!", "polskie_znaki");
+            db.Polacz();
+           SqlDataReader dr = db.Pobierz("SELECT dzial_1o,kw FROM eukw where kw in (SELECT [nazwa_nieruchomosci]  FROM [polskie_znaki].[dbo].[protokol] where rodzaj_nieruchomosci = 'BŁĄD')");
+           while (dr.Read())
+            {
+                var result = dr.GetString(0);
+                string kw = dr.GetString(1);
+                richTextBox1.AppendText(kw + ":"+Parsery.sposob_korzystania(result) + Environment.NewLine);
+            }
+           
+            
         }
         protected void dzial3_Click(object sender, EventArgs e)
         {
@@ -950,8 +959,7 @@ Przeglądanie treści księgi wieczystej ")
 
         private void Form1_Deactivate(object sender, EventArgs e)
         {
-            richTextBox1.Clear();
-            richTextBox1.AppendText("X:" + Cursor.Position.X.ToString() + "Y:" + Cursor.Position.Y.ToString());
+           
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)

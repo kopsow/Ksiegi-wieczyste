@@ -61,6 +61,7 @@ namespace Ksiegi_wieczyste
             }
             comm.CommandText = comand;
             this.command_text = comand;
+            comm.Connection = conn;
             SqlDataReader dr = comm.ExecuteReader();
 
             return dr;

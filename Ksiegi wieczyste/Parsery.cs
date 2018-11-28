@@ -10,6 +10,7 @@ namespace Ksiegi_wieczyste
    public class Parsery
     {
         
+
         public static string numery_dzialek(string input,string kw)
         {
             HtmlDocument doc = new HtmlDocument();
@@ -74,7 +75,45 @@ namespace Ksiegi_wieczyste
             }
             return powierzchnia;
         }
+        public static string sposob_korzystania(string input)
+        {
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(input);
+            string wynik = null;
+            try
+            {
+                HtmlNodeCollection links = doc.DocumentNode.SelectNodes("//table[@class='tbOdpis']");
+                HtmlNodeCollection rows = links[2].SelectNodes("td[@class='csDane' and @width='45%' and @colspan='45']");
+               
+               
+                for (int i=0;i<rows.Count;i++)
+                {
+                   if (rows[i].InnerHtml == "Sposób korzystania")
+                    {
+                        var text = rows[i + 1].InnerHtml;
+                        int dlugosc = rows[i + 1].InnerHtml.Length;
+                        wynik = rows[i + 1].InnerHtml.Substring(2);
+                        return wynik;
+                        
+                    } else if (rows[i].InnerHtml == "Przeznaczenie budynku")
+                    {
+                        return  rows[i + 1].InnerHtml;
+                    } 
 
+
+
+                }
+               return "BRAK";
+
+            }
+            catch (Exception ex)
+            {
+                
+                return "BŁAD 2";
+                
+                
+            }
+        }
         public static string rodzaj_nieruchomosci(string input)
         {
             HtmlDocument doc = new HtmlDocument();
