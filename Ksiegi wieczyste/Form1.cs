@@ -711,13 +711,20 @@ namespace Ksiegi_wieczyste
         {
             List<string> lista_wynikow = new List<string>();
             DatabaseClass db = new DatabaseClass("145.239.91.163", "SA", "koperski82!", "polskie_znaki");
+            DatabaseClass dbUpdate = new DatabaseClass("145.239.91.163", "SA", "koperski82!", "polskie_znaki");
             db.Polacz();
-           SqlDataReader dr = db.Pobierz("SELECT dzial_1o,kw FROM eukw where kw in (SELECT [nazwa_nieruchomosci]  FROM [polskie_znaki].[dbo].[protokol] where rodzaj_nieruchomosci = 'BŁĄD')");
+            dbUpdate.Polacz();
+
+           SqlDataReader dr = db.Pobierz("select dzial2,kw,dzial3 from eukw where kw in ('SR2W/00002348/9')");
            while (dr.Read())
             {
-                var result = dr.GetString(0);
+                var input = dr.GetString(0);
                 string kw = dr.GetString(1);
-                richTextBox1.AppendText(kw + ":"+Parsery.sposob_korzystania(result) + Environment.NewLine);
+                var input2 = dr.GetString(2);
+
+                string rodzaj_nieruchomosci = Parsery.sposob_korzystania(input);
+
+                richTextBox1.AppendText(rodzaj_nieruchomosci+ Environment.NewLine);
             }
            
             

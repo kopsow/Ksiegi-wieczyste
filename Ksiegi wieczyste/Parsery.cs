@@ -92,15 +92,13 @@ namespace Ksiegi_wieczyste
                     {
                         var text = rows[i + 1].InnerHtml;
                         int dlugosc = rows[i + 1].InnerHtml.Length;
-                        wynik = rows[i + 1].InnerHtml.Substring(2);
+                        wynik = rows[i + 1].InnerHtml;
                         return wynik;
                         
                     } else if (rows[i].InnerHtml == "Przeznaczenie budynku")
                     {
                         return  rows[i + 1].InnerHtml;
                     } 
-
-
 
                 }
                return "BRAK";
